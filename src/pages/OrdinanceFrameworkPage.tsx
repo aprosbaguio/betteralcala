@@ -64,7 +64,25 @@ export default function OrdinanceFrameworkPage() {
                 {filtered.length} ordinances
               </span>
             </div>
-            <div className="filter-tab-bar mb-0">
+            <div className="mobile-filter-select-wrap">
+              <label htmlFor="ordinance-category-select" className="mobile-filter-select-label">
+                Category
+              </label>
+              <select
+                id="ordinance-category-select"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="mobile-filter-select"
+                aria-label="Filter ordinances by category"
+              >
+                {categories.map((c) => (
+                  <option key={c} value={c}>
+                    {c === 'all' ? 'All Categories' : c}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-tab-bar filter-tab-bar--collapsible mb-0">
               {categories.map((c) => (
                 <button
                   key={c}
@@ -92,21 +110,26 @@ export default function OrdinanceFrameworkPage() {
               <tbody>
                 {filtered.map((ord) => (
                   <tr key={ord.ordinanceNo}>
-                    <td className="font-bold text-[#0032a0] whitespace-nowrap tabular-nums">
+                    <td
+                      data-label="Ordinance No."
+                      className="font-bold text-[#0032a0] whitespace-nowrap tabular-nums"
+                    >
                       Ord. {ord.ordinanceNo}
                     </td>
-                    <td>
+                    <td data-label="Title & Summary">
                       <div className="font-semibold text-slate-900">{ord.title}</div>
                       <div className="text-xs text-slate-600 mt-1">{ord.summary}</div>
                     </td>
-                    <td className="whitespace-nowrap text-xs font-medium">{ord.category}</td>
-                    <td className="whitespace-nowrap text-xs tabular-nums">
+                    <td data-label="Category" className="whitespace-nowrap text-xs font-medium">
+                      {ord.category}
+                    </td>
+                    <td data-label="Date / Review" className="whitespace-nowrap text-xs tabular-nums">
                       {ord.sessionDate}
                       {ord.spResolutionRef && (
                         <div className="text-slate-500">{ord.spResolutionRef}</div>
                       )}
                     </td>
-                    <td>
+                    <td data-label="Status & Source">
                       <div className="flex flex-col items-start gap-1">
                         <VerificationBadge status={ord.citation.verificationStatus} />
                         {ord.documentUrl && (

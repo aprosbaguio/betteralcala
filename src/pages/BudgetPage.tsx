@@ -240,46 +240,56 @@ export default function BudgetPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td>Annual Budgets (FY 2024 &amp; FY 2025 Totals)</td>
-                  <td>SB Alcala / SP Pangasinan</td>
-                  <td>Operative totals verified (₱193.59M / ₱230.31M)</td>
-                  <td>
+                  <td data-label="Document Category">Annual Budgets (FY 2024 &amp; FY 2025 Totals)</td>
+                  <td data-label="Issuing / Oversight Agency">SB Alcala / SP Pangasinan</td>
+                  <td data-label="Current Public Availability">
+                    Operative totals verified (₱193.59M / ₱230.31M)
+                  </td>
+                  <td data-label="Verification Status">
                     <span className="text-xs font-medium text-slate-600">Confirmed</span>
                   </td>
                 </tr>
                 <tr>
-                  <td>Annual Investment Program (AIP)</td>
-                  <td>MPDC / Municipal Budget Office</td>
-                  <td>Full line-item schedule not yet published online</td>
-                  <td>
+                  <td data-label="Document Category">Annual Investment Program (AIP)</td>
+                  <td data-label="Issuing / Oversight Agency">MPDC / Municipal Budget Office</td>
+                  <td data-label="Current Public Availability">
+                    Full line-item schedule not yet published online
+                  </td>
+                  <td data-label="Verification Status">
                     <VerificationBadge status="Needs Review" />
                   </td>
                 </tr>
                 <tr>
-                  <td>Statement of Receipts &amp; Expenditures (SRE)</td>
-                  <td>Bureau of Local Government Finance (BLGF)</td>
-                  <td>Routed via BLGF eSRE portal; municipal breakdown pending extraction</td>
-                  <td>
+                  <td data-label="Document Category">Statement of Receipts &amp; Expenditures (SRE)</td>
+                  <td data-label="Issuing / Oversight Agency">
+                    Bureau of Local Government Finance (BLGF)
+                  </td>
+                  <td data-label="Current Public Availability">
+                    Routed via BLGF eSRE portal; municipal breakdown pending extraction
+                  </td>
+                  <td data-label="Verification Status">
                     <VerificationBadge status="Needs Review" />
                   </td>
                 </tr>
                 <tr>
-                  <td>COA Annual Audit Reports (AAR)</td>
-                  <td>Commission on Audit (COA Region I)</td>
-                  <td>
+                  <td data-label="Document Category">COA Annual Audit Reports (AAR)</td>
+                  <td data-label="Issuing / Oversight Agency">
+                    Commission on Audit (COA Region I)
+                  </td>
+                  <td data-label="Current Public Availability">
                     Archived on{' '}
                     <a href="https://www.coa.gov.ph/" target="_blank" rel="noopener noreferrer">
                       coa.gov.ph
                     </a>
                   </td>
-                  <td>
+                  <td data-label="Verification Status">
                     <span className="text-xs font-medium text-slate-600">Archived online</span>
                   </td>
                 </tr>
                 <tr>
-                  <td>Municipal Procurement Notices &amp; Bids</td>
-                  <td>BAC Alcala / PhilGEPS</td>
-                  <td>
+                  <td data-label="Document Category">Municipal Procurement Notices &amp; Bids</td>
+                  <td data-label="Issuing / Oversight Agency">BAC Alcala / PhilGEPS</td>
+                  <td data-label="Current Public Availability">
                     Published via{' '}
                     <a
                       href="https://notices.philgeps.gov.ph/"
@@ -289,7 +299,7 @@ export default function BudgetPage() {
                       PhilGEPS
                     </a>
                   </td>
-                  <td>
+                  <td data-label="Verification Status">
                     <VerificationBadge status="Needs Review" />
                   </td>
                 </tr>
@@ -329,7 +339,25 @@ export default function BudgetPage() {
                 {filteredProjects.length} projects
               </span>
             </div>
-            <div className="filter-tab-bar mb-0">
+            <div className="mobile-filter-select-wrap">
+              <label htmlFor="budget-project-category-select" className="mobile-filter-select-label">
+                Project Type
+              </label>
+              <select
+                id="budget-project-category-select"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="mobile-filter-select"
+                aria-label="Filter infrastructure projects by type"
+              >
+                {projectCategories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat === 'all' ? 'All Project Types' : cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-tab-bar filter-tab-bar--collapsible mb-0">
               {projectCategories.map((cat) => (
                 <button
                   key={cat}

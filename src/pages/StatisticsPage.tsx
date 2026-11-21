@@ -167,7 +167,7 @@ export default function StatisticsPage() {
               </div>
 
               {/* 6 Census Columns on Single Baseline */}
-              <div className="relative z-10 grid grid-cols-6 gap-1.5 sm:gap-5 h-[210px]">
+              <div className="relative z-10 grid grid-cols-6 gap-1 sm:gap-5 h-[210px]">
                 {MUNICIPAL_PROFILE.historicalCensus.map((point, idx) => {
                   const prev = idx > 0 ? MUNICIPAL_PROFILE.historicalCensus[idx - 1].population : null;
                   const deltaPct = prev ? (((point.population - prev) / prev) * 100).toFixed(1) : null;
@@ -176,13 +176,13 @@ export default function StatisticsPage() {
                   return (
                     <div
                       key={point.year}
-                      className="h-full flex flex-col justify-end items-center"
+                      className="h-full min-w-0 flex flex-col justify-end items-center"
                       title={`${point.year}: ${point.population.toLocaleString()}${
                         deltaPct ? ` (+${deltaPct}%)` : ''
                       }`}
                     >
                       <span
-                        className={`text-[10px] sm:text-xs font-bold mb-1 tabular-nums whitespace-nowrap ${
+                        className={`text-[9px] sm:text-xs font-bold mb-1 tabular-nums whitespace-nowrap ${
                           isCurrent ? 'text-[#c25900]' : 'text-[#0032a0]'
                         }`}
                       >
@@ -206,21 +206,21 @@ export default function StatisticsPage() {
               </div>
 
               {/* X-Axis Year Labels & Inter-censal Growth */}
-              <div className="grid grid-cols-6 gap-1.5 sm:gap-5 pt-2.5">
+              <div className="grid grid-cols-6 gap-1 sm:gap-5 pt-2.5">
                 {MUNICIPAL_PROFILE.historicalCensus.map((point, idx) => {
                   const prev = idx > 0 ? MUNICIPAL_PROFILE.historicalCensus[idx - 1].population : null;
                   const deltaPct = prev ? (((point.population - prev) / prev) * 100).toFixed(1) : null;
                   const isCurrent = point.year === 2024;
                   return (
-                    <div key={point.year} className="text-center">
+                    <div key={point.year} className="text-center min-w-0">
                       <div
-                        className={`text-xs sm:text-sm font-bold tabular-nums ${
+                        className={`text-[11px] sm:text-sm font-bold tabular-nums ${
                           isCurrent ? 'text-[#c25900]' : 'text-slate-800'
                         }`}
                       >
                         {point.year}
                       </div>
-                      <div className="text-[10px] sm:text-[11px] font-semibold text-emerald-700 tabular-nums mt-0.5">
+                      <div className="text-[9px] sm:text-[11px] font-semibold text-emerald-700 tabular-nums mt-0.5">
                         {deltaPct ? `+${deltaPct}%` : 'Base'}
                       </div>
                     </div>

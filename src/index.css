@@ -356,6 +356,36 @@
   color: #ffffff;
 }
 
+.mobile-filter-select-wrap {
+  display: none;
+}
+
+.mobile-filter-select-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.mobile-filter-select {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  padding: 10px 12px;
+  line-height: 1.4;
+}
+
+.mobile-filter-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 /* Notice & disclaimer banner */
 .civic-notice-banner {
   background: rgba(0, 50, 160, 0.04);
@@ -462,22 +492,27 @@ body {
   }
 
   .filter-tab-bar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 4px;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 6px;
     margin-bottom: 16px;
   }
 
-  .filter-tab-bar::-webkit-scrollbar {
+  .filter-tab-bar--collapsible {
     display: none;
+  }
+
+  .mobile-filter-select-wrap {
+    display: block;
   }
 
   .filter-tab-btn {
     flex-shrink: 0;
-    padding: 7px 12px;
-    font-size: 0.8125rem;
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    white-space: normal;
+    text-align: center;
   }
 
   .mobile-clamp-2 {
@@ -663,6 +698,98 @@ body {
 
   .councilor-badge {
     margin-bottom: 0;
+  }
+
+  /* Eliminate left-right horizontal scrolling on data tables & wide grids on mobile */
+  .table-responsive {
+    overflow-x: visible;
+  }
+
+  .table-responsive .data-table thead {
+    display: none;
+  }
+
+  .table-responsive .data-table {
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .table-responsive .data-table,
+  .table-responsive .data-table tbody,
+  .table-responsive .data-table tr,
+  .table-responsive .data-table td {
+    display: block;
+    width: 100%;
+    min-width: 0 !important;
+    white-space: normal !important;
+  }
+
+  .table-responsive .data-table tbody tr {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .table-responsive .data-table tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .table-responsive .data-table tbody td {
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  .table-responsive .data-table tbody td:first-child {
+    padding-top: 0;
+  }
+
+  .table-responsive .data-table tbody td:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .table-responsive .data-table tbody td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 2px;
+  }
+
+  /* Prevent single-column grids & footer badges from exceeding mobile viewport width */
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .home-services-grid,
+  .home-leadership-grid,
+  .home-contact-v2-grid,
+  .leg-categories-grid,
+  .process-grid,
+  .metrics-grid,
+  .sre-metrics-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .container > *,
+  main > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .footer-cost,
+  .footer-version {
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
   }
 }
 
