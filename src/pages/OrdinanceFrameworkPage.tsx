@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import { ORDINANCES_DATA } from '../data/transparencyData';
 
 export default function OrdinanceFrameworkPage() {
@@ -125,10 +125,6 @@ export default function OrdinanceFrameworkPage() {
                 ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="mt-6">
-            <SourceCitationBox citation={ORDINANCES_DATA[0].citation} />
           </div>
         </div>
       </section>

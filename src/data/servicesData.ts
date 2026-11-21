@@ -333,7 +333,7 @@ export const SERVICES_DATA: ServiceRecord[] = [
     feesStatus: 'Needs Review',
     office: 'Alcala Rural Health Unit (RHU) / Municipal Health Office',
     officeAddress: 'National Road, Arboleda St., Poblacion East, Alcala, 2425 Pangasinan',
-    officePhones: ['(075) 593-4992', '0998-572-0248', '0926-282-1002'],
+    officePhones: ['0917-8616986', '(075) 593-4992', '0998-572-0248', '0926-282-1002'],
     officeHours: 'Mon–Fri: 8:00 AM – 5:00 PM',
     downloadableForms: [
       { label: 'Sanitary Permit Application Checklist', status: 'Unavailable', note: 'Available at Alcala RHU Sanitation Section' },
@@ -371,9 +371,9 @@ export const SERVICES_DATA: ServiceRecord[] = [
     processingTimeStatus: 'Needs Review',
     fees: 'Free (₱0.00)',
     feesStatus: 'Verified',
-    office: 'Municipal Social Welfare & Development Office (MSWDO)',
+    office: 'Municipal Social Welfare & Development Office (MSWDO / DSWD-Alcala)',
     officeAddress: 'Municipal Hall Compound, Poblacion East, Alcala, 2425 Pangasinan',
-    officePhones: ['(075) 632-5938', '(075) 593-3012'],
+    officePhones: ['0918-3940809', '(075) 632-5938', '(075) 593-3012'],
     officeEmail: 'pangasinan_alcala@yahoo.com',
     officeHours: 'Mon–Fri: 8:00 AM – 5:00 PM',
     downloadableForms: [
@@ -409,7 +409,7 @@ export const SERVICES_DATA: ServiceRecord[] = [
     feesStatus: 'Verified',
     office: 'Office for Senior Citizens Affairs (OSCA) / MSWDO',
     officeAddress: 'Municipal Hall Compound, Poblacion East, Alcala, 2425 Pangasinan',
-    officePhones: ['(075) 632-5938', '(075) 593-3012'],
+    officePhones: ['0918-3940809', '(075) 632-5938', '(075) 593-3012'],
     officeHours: 'Mon–Fri: 8:00 AM – 5:00 PM',
     downloadableForms: [
       { label: 'OSCA Registration Form', status: 'Unavailable', note: 'Provided free at MSWDO / OSCA desk' },
@@ -482,9 +482,9 @@ export const SERVICES_DATA: ServiceRecord[] = [
     processingTimeStatus: 'Needs Review',
     fees: 'Free (₱0.00 under RA 11861)',
     feesStatus: 'Verified',
-    office: 'Municipal Social Welfare & Development Office (MSWDO)',
+    office: 'Municipal Social Welfare & Development Office (MSWDO / DSWD-Alcala)',
     officeAddress: 'Municipal Hall Compound, Poblacion East, Alcala, 2425 Pangasinan',
-    officePhones: ['(075) 632-5938', '(075) 593-3012'],
+    officePhones: ['0918-3940809', '(075) 632-5938', '(075) 593-3012'],
     officeHours: 'Mon–Fri: 8:00 AM – 5:00 PM',
     downloadableForms: [
       { label: 'Solo Parent Application Form (RA 11861)', status: 'Unavailable', note: 'Provided at MSWDO Alcala' },
@@ -631,8 +631,8 @@ export const SERVICES_DATA: ServiceRecord[] = [
     feesStatus: 'Needs Review',
     office: 'Municipal Disaster Risk Reduction & Management Office (MDRRMO) / RHU',
     officeAddress: 'Municipal Hall Compound, Poblacion East, Alcala, 2425 Pangasinan',
-    officePhones: ['(075) 632-5938', '(075) 593-4992', '911'],
-    officeHours: 'Mon–Fri: 8:00 AM – 5:00 PM (24/7 Emergency Escalation via 911 / MPS)',
+    officePhones: ['0920-9817724', '0968-4448920', '0946-798-0534', '(075) 632-5938', '(075) 593-4992', '911'],
+    officeHours: '24/7 MDRRMO & Ambulance Hotlines · Office Mon–Fri: 8:00 AM – 5:00 PM',
     downloadableForms: [
       { label: 'Ordinance No. 2026-05 Ambulance Use Guidelines', status: 'Needs Review', note: 'Summary available on Legislative page' },
     ],

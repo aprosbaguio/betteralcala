@@ -45,6 +45,8 @@ export interface BarangayRecord {
   classification?: 'Urban' | 'Rural';
   punongBarangay?: string;
   contactNumber?: string;
+  phones?: string[];
+  phoneNote?: string;
   citation: SourceCitation;
 }
 
@@ -157,11 +159,21 @@ export interface NewsItem {
   citation: SourceCitation;
 }
 
+export type EmergencyContactCategory =
+  | 'Police'
+  | 'Health & Medical'
+  | 'Disaster & Rescue'
+  | 'Fire Protection'
+  | 'Social Welfare & Assistance'
+  | 'Private / Public Utilities'
+  | 'National / Provincial Escalation';
+
 export interface EmergencyContact {
   id: string;
   office: string;
-  category: 'Police' | 'Health & Medical' | 'Disaster & Rescue' | 'Fire Protection' | 'National / Provincial Escalation';
+  category: EmergencyContactCategory;
   phones: string[];
+  phoneNote?: string;
   email?: string;
   address: string;
   hours: string;

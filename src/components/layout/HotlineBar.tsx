@@ -1,8 +1,11 @@
 const hotlines = [
-  { icon: 'bi-shield-fill', label: 'Alcala Police', number: '(075) 593-2829', tel: '+63755932829' },
-  { icon: 'bi-heart-pulse-fill', label: 'Alcala RHU', number: '(075) 593-4992', tel: '+63755934992' },
+  { icon: 'bi-shield-fill', label: 'Alcala Police', number: '0922-3855616', tel: '09223855616' },
+  { icon: 'bi-fire', label: 'Alcala Fire (BFP)', number: '0917-1893611', tel: '09171893611' },
+  { icon: 'bi-truck-front-fill', label: 'Ambulance', number: '0946-798-0534', tel: '09467980534' },
+  { icon: 'bi-exclamation-triangle-fill', label: 'MDRRMO', number: '0920-9817724', tel: '09209817724' },
+  { icon: 'bi-heart-pulse-fill', label: 'Municipal Health', number: '0917-8616986', tel: '09178616986' },
+  { icon: 'bi-people-fill', label: 'DSWD-Alcala', number: '0918-3940809', tel: '09183940809' },
   { icon: 'bi-building', label: 'Municipal Hall', number: '(075) 632-5938', tel: '+63756325938' },
-  { icon: 'bi-fire', label: 'BFP Pangasinan', number: '(075) 569-5387', tel: '+63755695387' },
   { icon: 'bi-telephone-fill', label: 'Emergency', number: '911', tel: '911' },
   { icon: 'bi-megaphone-fill', label: 'ARTA / PCC', number: '8888', tel: '8888' },
 ];
@@ -23,7 +26,7 @@ export default function HotlineBar() {
                   const isDuplicate = passIdx > 0;
                   return (
                     <a
-                      key={`${passIdx}-${h.tel}`}
+                      key={`${passIdx}-${h.label}-${h.tel}`}
                       href={`tel:${h.tel}`}
                       className="hotline-item"
                       aria-hidden={isDuplicate ? 'true' : undefined}

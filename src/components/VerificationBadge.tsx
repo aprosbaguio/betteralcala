@@ -6,8 +6,11 @@ interface BadgeProps {
 }
 
 export const VerificationBadge: React.FC<BadgeProps> = ({ status }) => {
-  const config: Record<VerificationStatus, { cls: string; icon: string }> = {
-    Verified: { cls: 'verify-tag--verified', icon: 'bi-patch-check-fill' },
+  if (status === 'Verified') {
+    return null;
+  }
+
+  const config: Record<Exclude<VerificationStatus, 'Verified'>, { cls: string; icon: string }> = {
     'Needs Review': { cls: 'verify-tag--review', icon: 'bi-exclamation-circle-fill' },
     Outdated: { cls: 'verify-tag--outdated', icon: 'bi-clock-history' },
     Unavailable: { cls: 'verify-tag--unavailable', icon: 'bi-slash-circle-fill' },

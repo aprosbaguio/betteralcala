@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import { BUDGET_RECORDS, INFRASTRUCTURE_PROJECTS } from '../data/transparencyData';
 
 function formatPeso(amount: number): string {
@@ -103,9 +103,6 @@ export default function BudgetPage() {
                   {formatPeso(activeBudget.approvedBudget)}
                 </span>
                 <span className="sre-metric-label">Approved Annual Budget (FY {activeBudget.fiscalYear})</span>
-                <div className="mt-1">
-                  <VerificationBadge status="Verified" />
-                </div>
               </div>
             </div>
 
@@ -168,7 +165,6 @@ export default function BudgetPage() {
                   <dd>{activeBudget.ntaShareNote}</dd>
                 </div>
               </dl>
-              <SourceCitationBox citation={activeBudget.citation} />
             </div>
 
             <div className="bg-white border border-black/10 rounded-xl p-5">
@@ -248,7 +244,7 @@ export default function BudgetPage() {
                   <td>SB Alcala / SP Pangasinan</td>
                   <td>Operative totals verified (₱193.59M / ₱230.31M)</td>
                   <td>
-                    <VerificationBadge status="Verified" />
+                    <span className="text-xs font-medium text-slate-600">Confirmed</span>
                   </td>
                 </tr>
                 <tr>
@@ -277,7 +273,7 @@ export default function BudgetPage() {
                     </a>
                   </td>
                   <td>
-                    <VerificationBadge status="Verified" />
+                    <span className="text-xs font-medium text-slate-600">Archived online</span>
                   </td>
                 </tr>
                 <tr>

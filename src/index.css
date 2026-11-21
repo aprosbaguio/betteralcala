@@ -511,4 +511,66 @@ body {
     font-size: 0.72rem;
     line-height: 1.4;
   }
+
+  /* Mobile-only center alignment: Barangays section (GovernmentPage & ContactPage) */
+  #barangays .barangay-card,
+  #barangay-hotlines .barangay-card {
+    align-items: center;
+    text-align: center;
+  }
+
+  #barangays .barangay-card-header,
+  #barangay-hotlines .barangay-card-header {
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  #barangays .barangay-card-body,
+  #barangay-hotlines .barangay-card-body {
+    align-items: center;
+    width: 100%;
+  }
+
+  #barangays .barangay-contact,
+  #barangays .barangay-phones,
+  #barangay-hotlines .barangay-phones {
+    justify-content: center;
+  }
+
+  #barangays .source-citation-box {
+    text-align: center;
+  }
+
+  #barangays .source-citation-box > div,
+  #barangays .source-citation-meta {
+    justify-content: center;
+  }
+
+  /* Mobile-only center alignment: ContactPage contact listings */
+  .contact-hall-grid .home-contact-v2-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-hall-grid .home-contact-v2-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact-hall-grid .home-contact-v2-content > div {
+    align-items: center;
+  }
+
+  .contact-directory-card {
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-directory-meta,
+  .contact-directory-phones {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

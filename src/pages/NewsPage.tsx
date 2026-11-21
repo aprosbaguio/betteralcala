@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import { MUNICIPAL_PROFILE } from '../data/municipalInfo';
 import { NEWS_ITEMS } from '../data/communityData';
 
@@ -109,9 +109,7 @@ export default function NewsPage() {
 
                 <h2 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h2>
                 <p className="text-sm font-medium text-slate-800 mb-2">{item.summary}</p>
-                <p className="text-sm text-slate-600 mb-3">{item.details}</p>
-
-                <SourceCitationBox citation={item.citation} />
+                <p className="text-sm text-slate-600 mb-0">{item.details}</p>
               </article>
             ))}
           </div>

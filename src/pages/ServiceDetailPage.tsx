@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import { SERVICES_DATA } from '../data/servicesData';
 
 export default function ServiceDetailPage() {
@@ -184,8 +184,6 @@ export default function ServiceDetailPage() {
               )}
             </div>
           </div>
-
-          <SourceCitationBox citation={service.citation} />
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/services" className="btn btn-outline btn-sm">

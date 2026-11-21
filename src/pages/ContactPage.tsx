@@ -1,13 +1,48 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
-import { EMERGENCY_CONTACTS, MUNICIPAL_PROFILE } from '../data/municipalInfo';
+import { VerificationBadge } from '../components/VerificationBadge';
+import { BARANGAYS_DATA, EMERGENCY_CONTACTS, MUNICIPAL_PROFILE } from '../data/municipalInfo';
+import { EmergencyContactCategory } from '../types/civic';
+
+type FilterTab =
+  | 'All'
+  | 'Emergency & Rescue'
+  | 'Health & Social Welfare'
+  | 'Utilities'
+  | 'Escalation';
+
+const FILTER_MAP: Record<FilterTab, EmergencyContactCategory[] | null> = {
+  All: null,
+  'Emergency & Rescue': ['Police', 'Fire Protection', 'Disaster & Rescue'],
+  'Health & Social Welfare': ['Health & Medical', 'Social Welfare & Assistance'],
+  Utilities: ['Private / Public Utilities'],
+  Escalation: ['National / Provincial Escalation'],
+};
 
 export default function ContactPage() {
+  const [activeFilter, setActiveFilter] = useState<FilterTab>('All');
+  const [brgySearch, setBrgySearch] = useState('');
   const [senderName, setSenderName] = useState('');
   const [topic, setTopic] = useState('Data Verification / Update');
   const [message, setMessage] = useState('');
   const [submittedNotice, setSubmittedNotice] = useState(false);
+
+  const filteredContacts = useMemo(() => {
+    const allowedCategories = FILTER_MAP[activeFilter];
+    if (!allowedCategories) return EMERGENCY_CONTACTS;
+    return EMERGENCY_CONTACTS.filter((item) => allowedCategories.includes(item.category));
+  }, [activeFilter]);
+
+  const filteredBarangays = useMemo(() => {
+    const q = brgySearch.trim().toLowerCase();
+    if (!q) return BARANGAYS_DATA;
+    return BARANGAYS_DATA.filter(
+      (b) =>
+        b.name.toLowerCase().includes(q) ||
+        b.psgcCode.includes(q) ||
+        b.phones?.some((p) => p.toLowerCase().includes(q))
+    );
+  }, [brgySearch]);
 
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +63,8 @@ export default function ContactPage() {
             </span>
             <h1>Contact &amp; Emergency Hotlines</h1>
             <p className="page-header-desc">
-              Verified municipal trunklines, Alcala Municipal Police Station, Alcala Rural Health
-              Unit, and provincial emergency escalation numbers
+              Alcala Police, Bureau of Fire Protection, Ambulance, Rescue Drivers, MDRRMO, Health
+              Office, DSWD-Alcala, Utilities (CENPELCO &amp; Water District), and all 21 Barangays
             </p>
           </div>
         </div>
@@ -38,7 +73,7 @@ export default function ContactPage() {
       {/* Municipal Hall Contacts */}
       <section className="section">
         <div className="container">
-          <div className="grid grid-3" style={{ gap: 'var(--spacing-md)' }}>
+          <div className="grid grid-3 contact-hall-grid" style={{ gap: 'var(--spacing-md)' }}>
             <div className="home-contact-v2-card" style={{ cursor: 'default' }}>
               <div className="home-contact-v2-icon">
                 <i className="bi bi-telephone-fill" aria-hidden="true" />
@@ -81,25 +116,42 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Emergency Hotlines Directory */}
+      {/* Emergency Hotlines & Utilities Directory */}
       <section className="section bg-alt">
         <div className="container">
-          <div className="text-center mb-8">
-            <h2>Verified Emergency Contacts Directory</h2>
+          <div className="text-center mb-6">
+            <h2>Emergency, Office &amp; Utility Hotlines</h2>
             <p className="text-slate-600">
-              Tap any telephone number to dial directly from mobile devices. Unconfirmed local
-              extension lines are transparently flagged.
+              Tap any number to call directly. Filter by category or jump to{' '}
+              <a href="#barangay-hotlines" className="font-semibold text-[#0032a0] underline">
+                All 21 Barangay Hotlines ↓
+              </a>
             </p>
           </div>
 
+          <div className="filter-tab-bar justify-center" role="tablist" aria-label="Filter hotline categories">
+            {(Object.keys(FILTER_MAP) as FilterTab[]).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={activeFilter === tab}
+                onClick={() => setActiveFilter(tab)}
+                className={`filter-tab-btn ${activeFilter === tab ? 'active' : ''}`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
           <div className="grid grid-2" style={{ gap: 'var(--spacing-md)' }}>
-            {EMERGENCY_CONTACTS.map((item) => (
+            {filteredContacts.map((item) => (
               <article
                 key={item.id}
-                className="bg-white border border-black/10 rounded-xl p-5 flex flex-col justify-between"
+                className="contact-directory-card bg-white border border-black/10 rounded-xl p-5 flex flex-col"
               >
                 <div>
-                  <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="contact-directory-meta flex items-start justify-between gap-2 mb-2">
                     <span className="text-xs font-bold text-[#0032a0]">{item.category}</span>
                     <VerificationBadge status={item.citation.verificationStatus} />
                   </div>
@@ -111,12 +163,12 @@ export default function ContactPage() {
                     <i className="bi bi-clock" aria-hidden="true" /> {item.hours}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="contact-directory-phones flex flex-wrap gap-2">
                     {item.phones.map((ph) => (
                       <a
                         key={ph}
                         href={`tel:${ph.replace(/[^+\d]/g, '')}`}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-50 border border-[#0032a0]/20 px-3 py-1.5 text-sm font-bold text-[#0032a0] hover:bg-[#0032a0] hover:text-white transition"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-50 border border-[#0032a0]/20 px-3 py-1.5 text-sm font-bold text-[#0032a0] hover:bg-[#0032a0] hover:text-white transition tabular-nums"
                       >
                         <i className="bi bi-telephone-fill" aria-hidden="true" />
                         <span>{ph}</span>
@@ -132,17 +184,84 @@ export default function ContactPage() {
                       </a>
                     )}
                   </div>
-                </div>
 
-                <SourceCitationBox citation={item.citation} compact />
+                  {item.phoneNote && (
+                    <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1.5 mt-3 mb-0">
+                      <i className="bi bi-info-circle-fill" aria-hidden="true" /> {item.phoneNote}
+                    </p>
+                  )}
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
+      {/* 21 Barangays Hotline Directory */}
+      <section id="barangay-hotlines" className="section">
+        <div className="container">
+          <div className="text-center mb-6">
+            <h2>Barangay Emergency Hotlines (21 Barangays)</h2>
+            <p className="text-slate-600">
+              Direct mobile contact numbers for all 21 barangays of Alcala, Pangasinan
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto mb-6">
+            <input
+              type="search"
+              value={brgySearch}
+              onChange={(e) => setBrgySearch(e.target.value)}
+              placeholder="Search barangay name or hotline number..."
+              aria-label="Search Alcala barangay hotlines"
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-[#0032a0] focus:outline-none"
+            />
+          </div>
+
+          <div className="grid grid-3" style={{ gap: 'var(--spacing-sm)' }}>
+            {filteredBarangays.map((b) => (
+              <div key={b.psgcCode} className="barangay-card" style={{ cursor: 'default' }}>
+                <div className="barangay-card-header flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <i className="bi bi-geo-alt-fill" aria-hidden="true" />
+                    <span className="barangay-name">{b.name}</span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-500">{b.classification}</span>
+                </div>
+                <div className="barangay-card-body">
+                  <span className="text-xs text-slate-500 tabular-nums mb-1">
+                    PSGC: {b.psgcCode}
+                  </span>
+                  <div className="barangay-phones flex flex-wrap gap-2 mt-1">
+                    {b.phones?.map((ph) => (
+                      <a
+                        key={ph}
+                        href={`tel:${ph.replace(/[^+\d]/g, '')}`}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-50 border border-[#0032a0]/20 px-2.5 py-1 text-xs font-bold text-[#0032a0] hover:bg-[#0032a0] hover:text-white transition tabular-nums"
+                      >
+                        <i className="bi bi-telephone-fill" aria-hidden="true" />
+                        <span>{ph}</span>
+                      </a>
+                    ))}
+                  </div>
+                  {b.phoneNote && (
+                    <span className="text-[11px] text-amber-800 mt-1">{b.phoneNote}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {filteredBarangays.length === 0 && (
+            <p className="text-center text-sm text-slate-500 py-6">
+              No barangay matched "{brgySearch}". Try clearing the search box.
+            </p>
+          )}
+        </div>
+      </section>
+
       {/* Civic Feedback / Data Verification Report */}
-      <section id="feedback" className="section">
+      <section id="feedback" className="section bg-alt">
         <div className="container max-w-3xl">
           <div className="bg-white border border-black/10 rounded-xl p-6">
             <h2 className="text-xl font-bold text-[#0032a0] mb-2">

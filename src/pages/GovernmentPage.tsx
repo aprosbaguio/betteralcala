@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import {
   BARANGAYS_DATA,
   MUNICIPAL_OFFICES,
@@ -20,7 +20,10 @@ export default function GovernmentPage() {
     const q = brgySearch.trim().toLowerCase();
     if (!q) return BARANGAYS_DATA;
     return BARANGAYS_DATA.filter(
-      (b) => b.name.toLowerCase().includes(q) || b.psgcCode.includes(q)
+      (b) =>
+        b.name.toLowerCase().includes(q) ||
+        b.psgcCode.includes(q) ||
+        b.phones?.some((p) => p.toLowerCase().includes(q))
     );
   }, [brgySearch]);
 
@@ -80,7 +83,6 @@ export default function GovernmentPage() {
                       </span>
                     )}
                   </div>
-                  <SourceCitationBox citation={official.citation} compact />
                 </div>
               </div>
             ))}
@@ -110,7 +112,7 @@ export default function GovernmentPage() {
                   {c.committees?.join(' · ') || 'Committee assignments: Needs Review'}
                 </p>
                 <div className="mt-3 text-xs text-slate-500">
-                  Term: {c.term} · Source: {c.citation.issuingAgency}
+                  Term: {c.term}
                 </div>
               </div>
             ))}
@@ -200,7 +202,7 @@ export default function GovernmentPage() {
               type="search"
               value={brgySearch}
               onChange={(e) => setBrgySearch(e.target.value)}
-              placeholder="Filter barangays by name or PSGC code..."
+              placeholder="Filter barangays by name, PSGC code, or hotline..."
               aria-label="Filter Alcala barangays"
               className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm focus:border-[#0032a0] focus:outline-none"
             />
@@ -214,7 +216,6 @@ export default function GovernmentPage() {
                     <i className="bi bi-geo-alt-fill" aria-hidden="true" />
                     <span className="barangay-name">{b.name}</span>
                   </div>
-                  <VerificationBadge status="Verified" />
                 </div>
                 <div className="barangay-card-body">
                   <span className="barangay-captain tabular-nums">
@@ -225,16 +226,29 @@ export default function GovernmentPage() {
                     {b.population2020.toLocaleString()}
                     {b.population2024 ? ` · 2024: ${b.population2024.toLocaleString()}` : ''}
                   </span>
+                  {b.phones && b.phones.length > 0 && (
+                    <div className="barangay-phones flex flex-wrap gap-1.5 mt-1.5">
+                      {b.phones.map((ph) => (
+                        <a
+                          key={ph}
+                          href={`tel:${ph.replace(/[^+\d]/g, '')}`}
+                          className="inline-flex items-center gap-1 rounded-md bg-blue-50 border border-[#0032a0]/20 px-2 py-0.5 text-xs font-semibold text-[#0032a0] hover:bg-[#0032a0] hover:text-white transition tabular-nums"
+                        >
+                          <i className="bi bi-telephone-fill" aria-hidden="true" />
+                          <span>{ph}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {b.phoneNote && (
+                    <span className="text-[11px] text-amber-800 mt-1">{b.phoneNote}</span>
+                  )}
                   <span className="text-xs text-slate-500 mt-1">
-                    Punong Barangay &amp; Barangay Hotline: Needs Review
+                    Punong Barangay Name: Needs Review
                   </span>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="mt-6">
-            <SourceCitationBox citation={BARANGAYS_DATA[0].citation} />
           </div>
         </div>
       </section>

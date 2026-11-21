@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import Layout from '../components/layout/Layout';
-import { SourceCitationBox, VerificationBadge } from '../components/VerificationBadge';
+import { VerificationBadge } from '../components/VerificationBadge';
 import { BARANGAYS_DATA, MUNICIPAL_PROFILE } from '../data/municipalInfo';
 
 export default function StatisticsPage() {
@@ -138,14 +138,6 @@ export default function StatisticsPage() {
               })}
             </div>
           </div>
-
-          <p className="data-source mt-4">
-            <i className="bi bi-info-circle" aria-hidden="true" /> Source:{' '}
-            <a href="https://psa.gov.ph/" target="_blank" rel="noopener noreferrer">
-              Philippine Statistics Authority (PSA)
-            </a>{' '}
-            – Census of Population (1990–2024) · <VerificationBadge status="Verified" />
-          </p>
         </div>
       </section>
 
@@ -196,8 +188,6 @@ export default function StatisticsPage() {
               })}
             </div>
           </div>
-
-          <SourceCitationBox citation={BARANGAYS_DATA[0].citation} />
         </div>
       </section>
 
@@ -218,23 +208,21 @@ export default function StatisticsPage() {
               <h3 className="text-base font-bold text-[#0032a0] mb-2">
                 Primary Agricultural Economy
               </h3>
-              <p className="text-sm text-slate-700 mb-2">
+              <p className="text-sm text-slate-700 mb-0">
                 Alcala’s economy is anchored in rice and corn production, supplemented by tobacco,
                 lowland vegetables, poultry, and livestock farming.
               </p>
-              <VerificationBadge status="Verified" />
             </div>
 
             <div className="bg-white border border-black/10 rounded-xl p-5">
               <h3 className="text-base font-bold text-[#0032a0] mb-2">
                 Agro-Industrial &amp; Cooperatives
               </h3>
-              <p className="text-sm text-slate-700 mb-2">
+              <p className="text-sm text-slate-700 mb-0">
                 Facilities such as the Alcala Agro-Industrial Complex in Barangay Bersamin and active
                 farmers’ cooperatives support grain trading, post-harvest processing, and KADIWA
                 initiatives.
               </p>
-              <VerificationBadge status="Verified" />
             </div>
 
             <div className="bg-white border border-black/10 rounded-xl p-5">
