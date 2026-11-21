@@ -1,0 +1,130 @@
+{
+  "contacts": [
+    {
+      "id": "alcala-mps",
+      "office": "Alcala Municipal Police Station (MPS)",
+      "category": "Police",
+      "phones": [
+        "(075) 593-2829",
+        "0917-586-6662",
+        "0929-972-3562",
+        "0998-967-3055"
+      ],
+      "email": "alcala.mps.pppo_r01@pnp.gov.ph",
+      "address": "Poblacion East, Alcala, 2425 Pangasinan",
+      "hours": "24/7 Police Assistance & Emergency Response",
+      "citation": {
+        "sourceTitle": "PNP Pangasinan Police Provincial Office Directory",
+        "sourceUrl": "https://pnp.gov.ph/",
+        "issuingAgency": "Philippine National Police (PNP) Region I",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Verified"
+      }
+    },
+    {
+      "id": "alcala-rhu",
+      "office": "Alcala Rural Health Unit (RHU) / Municipal Health Office",
+      "category": "Health & Medical",
+      "phones": [
+        "(075) 593-4992",
+        "0998-572-0248",
+        "0926-282-1002"
+      ],
+      "address": "National Road, Arboleda St., Poblacion East, Alcala, 2425 Pangasinan",
+      "hours": "Mon–Fri: 8:00 AM – 5:00 PM (Medical Referral Support)",
+      "citation": {
+        "sourceTitle": "DOH / PhilHealth Primary Care Facility Directory",
+        "sourceUrl": "https://www.doh.gov.ph/",
+        "issuingAgency": "Department of Health / Alcala RHU",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Verified"
+      }
+    },
+    {
+      "id": "bfp-pangasinan",
+      "office": "Bureau of Fire Protection – Pangasinan Provincial Office (OPFM) / Fire Escalation",
+      "category": "Fire Protection",
+      "phones": [
+        "(075) 569-5387",
+        "(075) 568-6053",
+        "911"
+      ],
+      "address": "Alcala Fire Station (Direct local station landline: Needs Review) · Escalated via BFP Pangasinan OPFM",
+      "hours": "24/7 Fire & Rescue Dispatch",
+      "citation": {
+        "sourceTitle": "BFP Region I / Pangasinan OPFM Directory",
+        "sourceUrl": "https://bfp.gov.ph/",
+        "issuingAgency": "Bureau of Fire Protection (BFP)",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Needs Review",
+        "notes": "Provincial BFP OPFM lines and 911 are verified; Alcala Fire Station local landline needs direct verification."
+      }
+    },
+    {
+      "id": "pangasinan-toc",
+      "office": "Pangasinan Police Provincial Tactical Operation Center (TOC)",
+      "category": "National / Provincial Escalation",
+      "phones": [
+        "(075) 542-7185",
+        "0998-598-5092",
+        "0917-148-9938"
+      ],
+      "address": "Lingayen, Pangasinan (Provincial Police Command)",
+      "hours": "24/7 Provincial Operations Center",
+      "citation": {
+        "sourceTitle": "PNP Pangasinan Provincial Tactical Operations Directory",
+        "sourceUrl": "https://pnp.gov.ph/",
+        "issuingAgency": "PNP Pangasinan PPO",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Verified"
+      }
+    },
+    {
+      "id": "alcala-mdrrmo-contact",
+      "office": "Alcala MDRRMO & Municipal Hall Trunklines",
+      "category": "Disaster & Rescue",
+      "phones": [
+        "(075) 632-5938",
+        "(075) 593-3012",
+        "(075) 593-3803",
+        "911"
+      ],
+      "email": "pangasinan_alcala@yahoo.com",
+      "address": "Municipal Hall Compound, Poblacion East, Alcala, 2425 Pangasinan",
+      "hours": "Mon–Fri: 8:00 AM – 5:00 PM (Dedicated 24/7 MDRRMO mobile line: Needs Review)",
+      "citation": {
+        "sourceTitle": "DTI LGU Directory & National 911 Emergency System",
+        "sourceUrl": "https://ndrrmc.gov.ph/",
+        "issuingAgency": "DILG / LGU Alcala",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Needs Review",
+        "notes": "Municipal Hall trunklines are verified; dedicated 24/7 MDRRMO cellular hotline awaits LGU confirmation."
+      }
+    },
+    {
+      "id": "national-hotlines",
+      "office": "National Emergency, ARTA & Citizen Complaint Hotlines",
+      "category": "National / Provincial Escalation",
+      "phones": [
+        "911",
+        "8888",
+        "12782"
+      ],
+      "address": "Nationwide Republic of the Philippines Hotlines (911 · 8888 · 1-ARTA)",
+      "hours": "24/7 National Dispatch & Citizen Feedback",
+      "citation": {
+        "sourceTitle": "DILG / ARTA / Presidential Complaint Center Mandated Hotlines",
+        "sourceUrl": "https://arta.gov.ph/",
+        "issuingAgency": "DILG / ARTA / Office of the President",
+        "publicationDate": "2025-01-01",
+        "lastVerified": "2026-11-21",
+        "verificationStatus": "Verified"
+      }
+    }
+  ]
+}
