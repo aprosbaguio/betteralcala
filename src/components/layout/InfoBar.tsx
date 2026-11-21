@@ -123,7 +123,9 @@ export default function InfoBar() {
 
           <div className="info-bar-item info-bar-weather" aria-label="Current weather in Alcala">
             <i className="bi bi-thermometer-half" aria-hidden="true" />
-            <span className="weather-location">Alcala, Pangasinan</span>
+            <span className="weather-location">
+              Alcala<span className="weather-location-province">, Pangasinan</span>
+            </span>
             <span className="weather-temp tabular-nums">{temp}</span>
           </div>
 

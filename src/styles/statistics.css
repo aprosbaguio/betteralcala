@@ -55,8 +55,8 @@
 
 /* Key Metrics Section */
 .stats-metrics {
-  margin-top: 40px;
-  padding-bottom: 60px;
+  margin-top: -28px;
+  padding-bottom: 52px;
   position: relative;
   z-index: 2;
 }
@@ -72,21 +72,16 @@
   border-radius: 16px;
   padding: 28px 24px;
   text-align: center;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.metric-card.visible {
+  box-shadow: 0 6px 24px rgba(0, 50, 160, 0.08);
+  border: 1px solid rgba(0, 50, 160, 0.06);
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .metric-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0, 50, 160, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 50, 160, 0.12);
 }
 
 .metric-icon {
@@ -102,22 +97,30 @@
   color: white;
 }
 
+.metric-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .metric-value {
-  font-size: 2rem;
-  font-weight: 700;
+  display: block;
+  font-size: 1.875rem;
+  font-weight: 800;
   color: var(--color-text);
-  line-height: 1.2;
-  margin-bottom: 4px;
+  line-height: 1.15;
 }
 
 .metric-label {
+  display: block;
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 4px;
 }
 
 .metric-source {
+  display: block;
   font-size: 0.8125rem;
   color: var(--color-text-light);
 }
@@ -299,56 +302,82 @@
 
 /* Trends Section */
 .trends-summary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr 1fr;
+  align-items: stretch;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
 .trend-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   background: white;
-  border-radius: 12px;
-  padding: 20px 32px;
+  border-radius: 14px;
+  padding: 20px 24px;
   text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 50, 160, 0.04);
 }
 
 .trend-stat-current {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   border: none;
+  box-shadow: 0 6px 20px rgba(0, 50, 160, 0.18);
 }
 
 .trend-stat-current .trend-stat-label,
-.trend-stat-current .trend-stat-value {
+.trend-stat-current .trend-stat-value,
+.trend-stat-current .trend-stat-sub {
   color: white;
 }
 
+.trend-stat-current .trend-stat-sub {
+  color: rgba(255, 255, 255, 0.82);
+}
+
 .trend-stat-growth {
-  background: rgba(6, 167, 125, 0.1);
-  border-color: var(--color-success);
+  background: rgba(6, 167, 125, 0.08);
+  border-color: rgba(6, 167, 125, 0.35);
 }
 
 .trend-stat-growth .trend-stat-value {
-  color: var(--color-success);
+  color: #046c50;
 }
 
 .trend-stat-label {
-  font-size: 0.8125rem;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--color-text-light);
-  margin-bottom: 4px;
 }
 
 .trend-stat-value {
-  font-size: 1.5rem;
-  font-weight: 700;
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.15;
   color: var(--color-text);
 }
 
-.trend-arrow {
+.trend-stat-sub {
+  display: block;
+  font-size: 0.75rem;
   color: var(--color-text-light);
+}
+
+.trend-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
   font-size: 1.25rem;
+  padding: 0 4px;
 }
 
 /* Chart Wrapper */
@@ -784,14 +813,8 @@
 
 /* Animations */
 .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.animate-on-scroll.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Responsive */
@@ -814,11 +837,16 @@
   }
 
   .trends-summary {
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .trend-arrow {
+    display: none;
   }
 
   .trend-stat {
-    padding: 16px 24px;
+    padding: 16px 20px;
   }
 
   .poverty-comparison {

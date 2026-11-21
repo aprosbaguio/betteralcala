@@ -12,33 +12,13 @@ export default function Header() {
   const { pathname } = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
-  const navRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const scrollYRef = useRef(0);
-  const isAnimatingRef = useRef(false);
-
-  const lockBodyScroll = useCallback(() => {
-    scrollYRef.current = window.scrollY;
-    document.body.classList.add('mobile-menu-open');
-    document.body.style.top = `-${scrollYRef.current}px`;
-  }, []);
-
-  const unlockBodyScroll = useCallback(() => {
-    document.body.classList.remove('mobile-menu-open');
-    document.body.style.top = '';
-    window.scrollTo(0, scrollYRef.current);
-  }, []);
 
   const closeMenu = useCallback(() => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-    unlockBodyScroll();
-    setTimeout(() => {
-      isAnimatingRef.current = false;
-    }, 320);
-  }, [unlockBodyScroll]);
+  }, []);
 
   const toggleDropdown = useCallback((index: number, e: React.MouseEvent) => {
     if (isMobileNav()) {
@@ -47,49 +27,41 @@ export default function Header() {
     }
   }, []);
 
+  // Close mobile drawer cleanly on route navigation
   useEffect(() => {
-    isAnimatingRef.current = false;
-    if (mobileMenuOpen) {
-      closeMenu();
-    } else {
-      setOpenDropdown(null);
-    }
+    setMobileMenuOpen(false);
+    setOpenDropdown(null);
   }, [pathname]);
 
+  // Clean up any stale body classes from earlier builds
   useEffect(() => {
-    return () => {
-      document.body.classList.remove('mobile-menu-open');
-      document.body.style.top = '';
-    };
+    document.body.classList.remove('mobile-menu-open');
+    document.body.style.top = '';
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      const target = e.target as Node;
-      if (
-        navRef.current &&
-        !navRef.current.contains(target) &&
-        toggleRef.current &&
-        !toggleRef.current.contains(target)
-      ) {
+    if (!mobileMenuOpen) return;
+
+    function handlePointerDown(e: PointerEvent) {
+      const target = e.target as Node | null;
+      if (headerRef.current && target && !headerRef.current.contains(target)) {
         closeMenu();
       }
     }
-    if (mobileMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [mobileMenuOpen, closeMenu]);
 
-  useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
-      if (e.key === 'Escape' && mobileMenuOpen) {
+      if (e.key === 'Escape') {
         closeMenu();
         toggleRef.current?.focus();
       }
     }
+
+    document.addEventListener('pointerdown', handlePointerDown);
     document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, [mobileMenuOpen, closeMenu]);
 
   useEffect(() => {
@@ -98,7 +70,6 @@ export default function Header() {
       clearTimeout(timer);
       timer = setTimeout(() => {
         if (!isMobileNav() && mobileMenuOpen) {
-          isAnimatingRef.current = false;
           closeMenu();
         }
       }, 150);
@@ -111,10 +82,10 @@ export default function Header() {
   }, [mobileMenuOpen, closeMenu]);
 
   return (
-    <header className="site-header">
+    <header ref={headerRef} className="site-header">
       <div className="container header-inner">
         <div className="logo-container">
-          <Link to="/" aria-label="BetterAlcala Home" className="brand-lockup">
+          <Link to="/" aria-label="BetterAlcala Home" className="brand-lockup" onClick={closeMenu}>
             <img
               src="/assets/images/logo/alcala-seal.png"
               alt="Official Seal of the Municipality of Alcala — BetterAlcala Logo"
@@ -133,13 +104,13 @@ export default function Header() {
         </div>
 
         <nav
-          ref={navRef}
+          id="main-navigation"
           className={`main-nav ${mobileMenuOpen ? 'active' : ''}`}
           aria-label="Main Navigation"
         >
           <ul>
             <li>
-              <Link to="/" className={pathname === '/' ? 'active' : ''}>
+              <Link to="/" className={pathname === '/' ? 'active' : ''} onClick={closeMenu}>
                 {t('nav-home')}
               </Link>
             </li>
@@ -155,44 +126,77 @@ export default function Header() {
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <Link to="/services/certificates">Civil Registration &amp; Certificates</Link>
+                  <Link to="/services" onClick={closeMenu}>
+                    All Services Directory
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/business">Business Permits &amp; Licensing</Link>
+                  <Link to="/services/certificates" onClick={closeMenu}>
+                    Civil Registration &amp; Certificates
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/tax-payments">Municipal Treasury &amp; Assessor</Link>
+                  <Link to="/services/business" onClick={closeMenu}>
+                    Business Permits &amp; Licensing
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/social-services">Social Welfare, Senior, PWD &amp; Solo Parent</Link>
+                  <Link to="/services/tax-payments" onClick={closeMenu}>
+                    Municipal Treasury &amp; Assessor
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/health">Health Services (Alcala RHU)</Link>
+                  <Link to="/services/social-services" onClick={closeMenu}>
+                    Social Welfare, Senior, PWD &amp; Solo Parent
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/agriculture">Agriculture &amp; Farmer Support</Link>
+                  <Link to="/services/health" onClick={closeMenu}>
+                    Health Services (Alcala RHU)
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/infrastructure">Building &amp; Construction</Link>
+                  <Link to="/services/agriculture" onClick={closeMenu}>
+                    Agriculture &amp; Farmer Support
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/education">Employment Assistance (PESO)</Link>
+                  <Link to="/services/infrastructure" onClick={closeMenu}>
+                    Building &amp; Construction
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/public-safety">Disaster Risk Reduction &amp; Safety</Link>
+                  <Link to="/services/education" onClick={closeMenu}>
+                    Employment Assistance (PESO)
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/services/environment">Environment &amp; Solid Waste</Link>
+                  <Link to="/services/public-safety" onClick={closeMenu}>
+                    Disaster Risk Reduction &amp; Safety
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/services/environment" onClick={closeMenu}>
+                    Environment &amp; Solid Waste
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/government" className={pathname.startsWith('/government') ? 'active' : ''}>
+              <Link
+                to="/government"
+                className={pathname.startsWith('/government') ? 'active' : ''}
+                onClick={closeMenu}
+              >
                 {t('nav-government')}
               </Link>
             </li>
             <li>
-              <Link to="/statistics" className={pathname.startsWith('/statistics') ? 'active' : ''}>
+              <Link
+                to="/statistics"
+                className={pathname.startsWith('/statistics') ? 'active' : ''}
+                onClick={closeMenu}
+              >
                 {t('nav-statistics')}
               </Link>
             </li>
@@ -208,20 +212,32 @@ export default function Header() {
               </Link>
               <ul className="dropdown-menu">
                 <li>
-                  <Link to="/legislative/ordinance-framework">Ordinance Framework</Link>
+                  <Link to="/legislative/ordinance-framework" onClick={closeMenu}>
+                    Ordinance Framework
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/legislative/resolution-framework">Resolution Framework</Link>
+                  <Link to="/legislative/resolution-framework" onClick={closeMenu}>
+                    Resolution Framework
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/budget" className={pathname.startsWith('/budget') ? 'active' : ''}>
+              <Link
+                to="/budget"
+                className={pathname.startsWith('/budget') ? 'active' : ''}
+                onClick={closeMenu}
+              >
                 {t('nav-transparency')}
               </Link>
             </li>
             <li>
-              <Link to="/contact" className={pathname.startsWith('/contact') ? 'active' : ''}>
+              <Link
+                to="/contact"
+                className={pathname.startsWith('/contact') ? 'active' : ''}
+                onClick={closeMenu}
+              >
                 {t('nav-contact')}
               </Link>
             </li>
@@ -260,22 +276,11 @@ export default function Header() {
         <button
           ref={toggleRef}
           type="button"
-          className="mobile-menu-toggle btn btn-secondary"
-          onClick={() => {
-            if (isAnimatingRef.current) return;
-            if (mobileMenuOpen) {
-              closeMenu();
-            } else {
-              isAnimatingRef.current = true;
-              setMobileMenuOpen(true);
-              lockBodyScroll();
-              setTimeout(() => {
-                isAnimatingRef.current = false;
-              }, 320);
-            }
-          }}
-          aria-label="Toggle Navigation"
+          className="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          aria-label={mobileMenuOpen ? 'Close Navigation' : 'Open Navigation'}
           aria-expanded={mobileMenuOpen ? 'true' : 'false'}
+          aria-controls="main-navigation"
         >
           <i className={`bi ${mobileMenuOpen ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
         </button>

@@ -53,8 +53,10 @@
 
   .logo-container {
     order: 1;
+    margin-right: auto;
+    min-width: 0;
     padding: 2px 0;
-    flex-shrink: 0;
+    flex-shrink: 1;
   }
 
   .logo-img {
@@ -62,16 +64,16 @@
     width: 40px;
   }
 
-  .mobile-menu-toggle {
+  .header-actions {
     order: 2;
     flex-shrink: 0;
-    margin: 0;
+    padding: 2px 0;
   }
 
-  .header-actions {
+  .mobile-menu-toggle {
     order: 3;
     flex-shrink: 0;
-    padding: 2px 0;
+    margin: 0;
   }
 
   .lang-selector {
@@ -102,8 +104,9 @@
   }
 
   .main-nav.active {
-    max-height: 80vh;
+    max-height: calc(100dvh - 70px);
     overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 1;
     visibility: visible;
     transition:
@@ -545,8 +548,10 @@
   }
 
   .mobile-menu-toggle {
-    padding: 0.35rem;
-    font-size: 1.375rem;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    font-size: 1.35rem;
   }
 
   .lang-btn {
@@ -585,13 +590,20 @@
 /* Mobile Menu Toggle Button */
 .mobile-menu-toggle {
   display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  background: rgba(0, 50, 160, 0.04);
+  border: 1px solid rgba(0, 50, 160, 0.16);
+  border-radius: 8px;
+  font-size: 1.4rem;
   color: var(--color-primary);
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0;
+  min-width: 42px;
+  min-height: 42px;
   line-height: 1;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 1002;
 }
 
 .mobile-menu-toggle:focus {
@@ -601,12 +613,12 @@
 .mobile-menu-toggle:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: -2px;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 @media (max-width: 1024px) {
   .mobile-menu-toggle {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
   }

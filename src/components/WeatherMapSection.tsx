@@ -40,7 +40,7 @@ function mapWeatherCode(code: number): { condition: string; icon: string } {
 function getFallbackWeather(): WeatherData {
   const currentHour = new Date().getHours();
   const hourlyForecast: HourlyPoint[] = [];
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 9; i++) {
     const hour = (currentHour + i) % 24;
     const isPM = hour >= 12;
     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -66,7 +66,7 @@ export default function WeatherMapSection() {
   const [weather, setWeather] = useState<WeatherData>(getFallbackWeather);
 
   useEffect(() => {
-    const cacheKey = 'alcala_weather_card_v1';
+    const cacheKey = 'alcala_weather_card_v2';
     try {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
@@ -81,7 +81,7 @@ export default function WeatherMapSection() {
     }
 
     fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=15.8467&longitude=120.5219&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code&forecast_days=1&timezone=Asia%2FManila'
+      'https://api.open-meteo.com/v1/forecast?latitude=15.8467&longitude=120.5219&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code&forecast_days=2&timezone=Asia%2FManila'
     )
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
@@ -90,7 +90,7 @@ export default function WeatherMapSection() {
         const nowHour = new Date().getHours();
         const hourlyForecast: HourlyPoint[] = [];
         if (data.hourly?.time && data.hourly?.temperature_2m) {
-          for (let i = 0; i < 6; i++) {
+          for (let i = 0; i < 9; i++) {
             const idx = (nowHour + i) % data.hourly.time.length;
             const hour = (nowHour + i) % 24;
             const isPM = hour >= 12;
